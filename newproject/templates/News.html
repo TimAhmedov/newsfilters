@@ -1,0 +1,47 @@
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+{% block title %}
+News
+{% endblock title%}
+
+
+{% block content %}
+   <h1>Все новости</h1>
+   <h2> Количество статей: {{News|length}}</h2>
+   {% if News %}
+       <table>
+           <tr>
+               <td>
+                   заголовок
+               </td>
+               <td>
+                   дата публикации
+               </td>
+               <td>
+                   текс стати
+               </td>
+
+           </tr>
+           {% for new in News %}
+             <tr>
+                 <td>
+                     {{new.text_title|censor:'%%'}}
+                 </td>
+                 <td>
+                     {{new.datetime|date:'d M Y'}}
+                 </td>
+                 <td>
+                     {{new.text_news|truncatechars:50|censor:'%%'}}
+                 </td>
+
+             </tr>
+           {% endfor %}
+       </table>
+
+   {% else %}
+       <h2> Новостей нету</h2>
+   {% endif %}
+
+{% endblock  %}
+
